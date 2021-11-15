@@ -5,7 +5,7 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Title from './Title';
+import Title from './title';
 
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
@@ -31,7 +31,14 @@ const rows = [
         'VISA ⠀•••• 2574',
         866.99,
     ),
-    createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
+    createData(
+        2,
+        '16 Mar, 2019',
+        'Tom Scholz',
+        'Boston, MA',
+        'MC ⠀•••• 1253',
+        100.81,
+    ),
     createData(
         3,
         '16 Mar, 2019',
@@ -81,7 +88,7 @@ export default function Orders() {
                 </TableBody>
             </Table>
             <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
+                See more orders
             </Link>
         </React.Fragment>
     );
