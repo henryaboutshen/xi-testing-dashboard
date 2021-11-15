@@ -35,8 +35,8 @@ function DashboardContent() {
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
-                <Header open={open} setOpen={setOpen}/>
-                <Navigation open={open} setOpen={setOpen}/>
+                <Header open={open} setOpen={setOpen} />
+                <Navigation open={open} setOpen={setOpen} />
                 <Box
                     component="main"
                     sx={{
@@ -49,32 +49,70 @@ function DashboardContent() {
                     }}
                 >
                     <Toolbar />
-                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                    <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
+                            {/* Recent Deposits */}
+                            <Grid container item spacing={3} xs={12} md={4}>
+                                <Grid item xs={12} md={6}>
+                                    <Paper
+                                        sx={{
+                                            p: 2,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            height: 150,
+                                        }}
+                                    >
+                                        <Deposits />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Paper
+                                        sx={{
+                                            p: 2,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            height: 150,
+                                        }}
+                                    >
+                                        <Deposits />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Paper
+                                        sx={{
+                                            p: 2,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            height: 150,
+                                        }}
+                                    >
+                                        <Deposits />
+                                    </Paper>
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <Paper
+                                        sx={{
+                                            p: 2,
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            height: 150,
+                                        }}
+                                    >
+                                        <Deposits />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
                             {/* Chart */}
-                            <Grid item xs={12} md={8} lg={9}>
+                            <Grid item xs={12} md={8}>
                                 <Paper
                                     sx={{
                                         p: 2,
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        height: 240,
+                                        height: 350,
                                     }}
                                 >
                                     <Chart />
-                                </Paper>
-                            </Grid>
-                            {/* Recent Deposits */}
-                            <Grid item xs={12} md={4} lg={3}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <Deposits />
                                 </Paper>
                             </Grid>
                             {/* Recent Orders */}
