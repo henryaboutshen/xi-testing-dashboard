@@ -48,7 +48,7 @@ export default function Chart() {
 
     return (
         <React.Fragment>
-            <Title>Today</Title>
+            <Title>Response Time</Title>
             <ResponsiveContainer>
                 <BarChart
                     width={500}

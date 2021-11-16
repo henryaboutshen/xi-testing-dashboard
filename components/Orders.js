@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import * as React from 'react';
 import Link from '@mui/material/Link';
 import Table from '@mui/material/Table';
@@ -8,52 +9,44 @@ import TableRow from '@mui/material/TableRow';
 import Title from './title';
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
+function createData(id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent) {
     return {
-        id, date, name, shipTo, paymentMethod, amount,
+        id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent,
     };
 }
 
 const rows = [
     createData(
         0,
-        '16 Mar, 2019',
-        'Elvis Presley',
-        'Tupelo, MS',
-        'VISA ⠀•••• 3719',
-        312.44,
+        'hello',
+        300,
+        3,
+        3,
+        6,
+        8,
+        11,
+        2,
+        12,
+        '0.00%',
+        0.27164,
+        0.07,
+        0.03,
     ),
     createData(
         1,
-        '16 Mar, 2019',
-        'Paul McCartney',
-        'London, UK',
-        'VISA ⠀•••• 2574',
-        866.99,
-    ),
-    createData(
-        2,
-        '16 Mar, 2019',
-        'Tom Scholz',
-        'Boston, MA',
-        'MC ⠀•••• 1253',
-        100.81,
-    ),
-    createData(
+        'hello',
+        300,
         3,
-        '16 Mar, 2019',
-        'Michael Jackson',
-        'Gary, IN',
-        'AMEX ⠀•••• 2000',
-        654.39,
-    ),
-    createData(
-        4,
-        '15 Mar, 2019',
-        'Bruce Springsteen',
-        'Long Branch, NJ',
-        'VISA ⠀•••• 5919',
-        212.79,
+        3,
+        6,
+        8,
+        11,
+        2,
+        12,
+        '0.00%',
+        0.27164,
+        0.07,
+        0.03,
     ),
 ];
 
@@ -64,25 +57,41 @@ function preventDefault(event) {
 export default function Orders() {
     return (
         <React.Fragment>
-            <Title>Recent Orders</Title>
+            <Title> Aggregate Report</Title>
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Date</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Ship To</TableCell>
-                        <TableCell>Payment Method</TableCell>
-                        <TableCell align="right">Sale Amount</TableCell>
+                        <TableCell>Label</TableCell>
+                        <TableCell># Samples</TableCell>
+                        <TableCell>Average</TableCell>
+                        <TableCell>Median</TableCell>
+                        <TableCell>90% Line</TableCell>
+                        <TableCell>95% Line</TableCell>
+                        <TableCell>99% Line</TableCell>
+                        <TableCell>Min</TableCell>
+                        <TableCell>Max</TableCell>
+                        <TableCell>Error %</TableCell>
+                        <TableCell>Throughput</TableCell>
+                        <TableCell align="right">Received KB/sec</TableCell>
+                        <TableCell align="right">Sent KB/sec</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {rows.map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell>{row.date}</TableCell>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.shipTo}</TableCell>
-                            <TableCell>{row.paymentMethod}</TableCell>
-                            <TableCell align="right">{`$${row.amount}`}</TableCell>
+                            <TableCell>{row.label}</TableCell>
+                            <TableCell>{row.samples}</TableCell>
+                            <TableCell>{row.average}</TableCell>
+                            <TableCell>{row.median}</TableCell>
+                            <TableCell>{row.line90}</TableCell>
+                            <TableCell>{row.line95}</TableCell>
+                            <TableCell>{row.line99}</TableCell>
+                            <TableCell>{row.min}</TableCell>
+                            <TableCell>{row.max}</TableCell>
+                            <TableCell>{row.error}</TableCell>
+                            <TableCell>{row.throughput}</TableCell>
+                            <TableCell align="right">{`${row.received}`}</TableCell>
+                            <TableCell align="right">{`${row.sent}`}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

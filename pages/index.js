@@ -8,10 +8,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Header from '../components/header';
 import Chart from '../components/chart';
-import Deposits from '../components/deposits';
 import Orders from '../components/orders';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
+import KeyIndicators from '../components/key-indicators';
 
 const mdTheme = createTheme({
     palette: {
@@ -52,56 +52,7 @@ function DashboardContent() {
                     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
                             {/* Recent Deposits */}
-                            <Grid container item spacing={3} xs={12} md={4}>
-                                <Grid item xs={12} md={6}>
-                                    <Paper
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            height: 150,
-                                        }}
-                                    >
-                                        <Deposits />
-                                    </Paper>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Paper
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            height: 150,
-                                        }}
-                                    >
-                                        <Deposits />
-                                    </Paper>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Paper
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            height: 150,
-                                        }}
-                                    >
-                                        <Deposits />
-                                    </Paper>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <Paper
-                                        sx={{
-                                            p: 2,
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            height: 150,
-                                        }}
-                                    >
-                                        <Deposits />
-                                    </Paper>
-                                </Grid>
-                            </Grid>
+                            < KeyIndicators />
                             {/* Chart */}
                             <Grid item xs={12} md={8}>
                                 <Paper
@@ -109,7 +60,7 @@ function DashboardContent() {
                                         p: 2,
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        height: 350,
+                                        height: 324,
                                     }}
                                 >
                                     <Chart />

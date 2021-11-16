@@ -7,7 +7,7 @@ export default function Footer(props) {
             {'© Copyright '}
             {new Date().getFullYear()}
             {' '}
-            <Link color="inherit" href="https://zhaoliru.cn/">
+            <Link color="inherit" href="https://github.com/henryaboutshen/">
                 Hanrui Shen
             </Link>
             {' .'}
