@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Header from '../components/header';
 import Chart from '../components/chart';
-import Orders from '../components/orders';
+import AggregateReport from '../components/aggregate-report';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
 import KeyIndicators from '../components/key-indicators';
@@ -69,7 +69,7 @@ function DashboardContent() {
                             {/* Recent Orders */}
                             <Grid item xs={12}>
                                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                    <Orders />
+                                    <AggregateReport />
                                 </Paper>
                             </Grid>
                         </Grid>
