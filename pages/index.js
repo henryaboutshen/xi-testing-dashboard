@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import {
+    CssBaseline, Box, Toolbar, Container, Grid, Paper,
+} from '@mui/material';
 import Header from '../components/header';
 import Chart from '../components/chart';
 import AggregateReport from '../components/aggregate-report';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
 import KeyIndicators from '../components/key-indicators';
+import Profile from '../components/profile';
 
 const mdTheme = createTheme({
     palette: {
@@ -51,7 +49,11 @@ function DashboardContent() {
                     <Toolbar />
                     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            {/* Recent Deposits */}
+                            {/* Profile */}
+                            <Profile>
+                                2021-01-02 23:18:00
+                            </Profile>
+                            {/* Key Indicators */}
                             < KeyIndicators />
                             {/* Chart */}
                             <Grid item xs={12} md={8}>
@@ -66,9 +68,13 @@ function DashboardContent() {
                                     <Chart />
                                 </Paper>
                             </Grid>
-                            {/* Recent Orders */}
+                            {/* Aggregate Report */}
                             <Grid item xs={12}>
-                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                                <Paper sx={{
+                                    p: 2,
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                }}>
                                     <AggregateReport />
                                 </Paper>
                             </Grid>

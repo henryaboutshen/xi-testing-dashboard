@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+    BarChart, Bar, Brush, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts';
 import Title from './title';
 
@@ -46,7 +46,7 @@ export default function Chart() {
                 <BarChart
                     width={500}
                     height={300}
-                    data={data}
+                    data={data.sort((a, b) => b.pv - a.pv)}
                     margin={{
                         top: 5,
                         right: 30,
@@ -66,6 +66,7 @@ export default function Chart() {
                         style={theme.typography.body2}
                     />
                     <Tooltip />
+                    <Brush dataKey="name" height={20} stroke={theme.palette.primary.main } />
                     <Bar
                         dataKey="pv"
                         fill={theme.palette.primary.main}

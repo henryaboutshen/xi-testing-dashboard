@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import Link from '@mui/material/Link';
 import TableContainer from '@mui/material/TableContainer';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import { TablePagination } from '@mui/material';
 import Box from '@mui/material/Box';
+import Chip from '@mui/material/Chip';
 import { visuallyHidden } from '@mui/utils';
 import Title from './title';
 
@@ -22,8 +22,8 @@ function createData(id, label, samples, average, median, line90, line95, line99,
 
 const rows = [
     createData(0, 'hello', 300, 3, 3, 6, 8, 11, 2, 12, '0.00%', 0.27164, 0.07, 0.03),
-    createData(1, 'hello-1', 400, 3, 3, 6, 8, 11, 2, 12, '0.00%', 0.27164, 0.07, 0.03),
-    createData(2, 'hello-2', 500, 3, 3, 6, 8, 11, 2, 12, '0.00%', 0.27164, 0.07, 0.03),
+    createData(1, 'hello-1', 400, 3, 3, 6, 8, 11, 2, 12, '1.10%', 0.27164, 0.07, 0.03),
+    createData(2, 'hello-2', 500, 3, 3, 6, 8, 11, 2, 12, '11.00%', 0.27164, 0.07, 0.03),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -56,16 +56,10 @@ const headCells = [
         label: '# Samples',
     },
     {
-        id: 'average',
+        id: 'error',
         numeric: true,
         disablePadding: false,
-        label: 'Average',
-    },
-    {
-        id: 'median',
-        numeric: true,
-        disablePadding: false,
-        label: 'Median',
+        label: 'Error %',
     },
     {
         id: 'line90',
@@ -86,6 +80,18 @@ const headCells = [
         label: '99% Line',
     },
     {
+        id: 'average',
+        numeric: true,
+        disablePadding: false,
+        label: 'Average',
+    },
+    {
+        id: 'median',
+        numeric: true,
+        disablePadding: false,
+        label: 'Median',
+    },
+    {
         id: 'min',
         numeric: true,
         disablePadding: false,
@@ -96,12 +102,6 @@ const headCells = [
         numeric: true,
         disablePadding: false,
         label: 'Max',
-    },
-    {
-        id: 'error',
-        numeric: true,
-        disablePadding: false,
-        label: 'Error %',
     },
     {
         id: 'throughput',
@@ -167,10 +167,6 @@ AggregateReportTableHead.propTypes = {
     orderBy: PropTypes.string.isRequired,
 };
 
-function preventDefault(event) {
-    event.preventDefault();
-}
-
 export default function AggregateReport() {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('label');
@@ -220,14 +216,14 @@ export default function AggregateReport() {
                                         {row.label}
                                     </TableCell>
                                     <TableCell align="right">{row.samples}</TableCell>
-                                    <TableCell align="right">{row.average}</TableCell>
-                                    <TableCell align="right">{row.median}</TableCell>
+                                    <TableCell align="right"><Chip label={row.error} color="success" variant="outlined" size="small" /></TableCell>
                                     <TableCell align="right">{row.line90}</TableCell>
                                     <TableCell align="right">{row.line95}</TableCell>
                                     <TableCell align="right">{row.line99}</TableCell>
+                                    <TableCell align="right">{row.average}</TableCell>
+                                    <TableCell align="right">{row.median}</TableCell>
                                     <TableCell align="right">{row.min}</TableCell>
                                     <TableCell align="right">{row.max}</TableCell>
-                                    <TableCell align="right">{row.error}</TableCell>
                                     <TableCell align="right">{row.throughput}</TableCell>
                                     <TableCell align="right">{row.received}</TableCell>
                                     <TableCell align="right">{row.sent}</TableCell>
@@ -254,9 +250,6 @@ export default function AggregateReport() {
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
-            <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-                See more reports
-            </Link>
         </React.Fragment>
     );
 }
