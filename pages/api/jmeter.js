@@ -1,10 +1,12 @@
 import csvParser from 'csv-parser';
 import fs from 'fs';
 
+const REPORT_DIR = 'report';
+
 function parse(file) {
     return new Promise((resolve, reject) => {
         const result = [];
-        fs.createReadStream(`report/${file}.csv`)
+        fs.createReadStream(`${REPORT_DIR}/${file}.csv`)
             .on('error', (error) => reject(error))
             .pipe(csvParser())
             .on('data', (data) => result.push(data))
