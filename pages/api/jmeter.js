@@ -10,7 +10,10 @@ function parse(file) {
             .on('error', (error) => reject(error))
             .pipe(csvParser())
             .on('data', (data) => result.push(data))
-            .on('end', () => resolve(result))
+            .on('end', () => {
+                result.pop();
+                resolve(result);
+            })
             .on('error', (error) => reject(error));
     });
 }

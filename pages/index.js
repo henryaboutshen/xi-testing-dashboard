@@ -1,10 +1,12 @@
 import * as React from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
     CssBaseline, Box, Toolbar, Container, Grid, Paper,
 } from '@mui/material';
 import Header from '../components/header';
-import Chart from '../components/chart';
+import ResponseTimeChart from '../components/response-time-chart';
 import AggregateReport from '../components/aggregate-report';
 import Navigation from '../components/navigation';
 import Footer from '../components/footer';
@@ -26,7 +28,7 @@ const mdTheme = createTheme({
     },
 });
 
-function DashboardContent() {
+function DashboardContent(props) {
     const [open, setOpen] = React.useState(true);
 
     return (
@@ -55,7 +57,7 @@ function DashboardContent() {
                             </Profile>
                             {/* Key Indicators */}
                             < KeyIndicators />
-                            {/* Chart */}
+                            {/* Response Time Chart */}
                             <Grid item xs={12} md={8}>
                                 <Paper
                                     sx={{
@@ -65,7 +67,7 @@ function DashboardContent() {
                                         height: 324,
                                     }}
                                 >
-                                    <Chart />
+                                    <ResponseTimeChart data={props.data} />
                                 </Paper>
                             </Grid>
                             {/* Aggregate Report */}
@@ -75,7 +77,7 @@ function DashboardContent() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                 }}>
-                                    <AggregateReport />
+                                    <AggregateReport data={props.data} />
                                 </Paper>
                             </Grid>
                         </Grid>
@@ -87,6 +89,29 @@ function DashboardContent() {
     );
 }
 
-export default function Dashboard() {
-    return <DashboardContent />;
+function Dashboard({ data }) {
+    return <DashboardContent data={data} />;
 }
+
+async function getReport() {
+    const response = await axios.get('http://127.0.0.1:3000/api/jmeter?file=2021');
+    if (response.status !== 200) {
+        return {};
+    }
+    const report = response.data;
+    if (!report) {
+        return {};
+    }
+    return report;
+}
+
+Dashboard.getInitialProps = async () => {
+    const data = await getReport();
+    return { data };
+};
+
+Dashboard.prototype = {
+    data: PropTypes.array,
+};
+
+export default Dashboard;

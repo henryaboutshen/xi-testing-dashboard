@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -15,17 +16,20 @@ import { visuallyHidden } from '@mui/utils';
 import Title from './title';
 
 function createData(id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent) {
+    samples = parseInt(samples, 10);
+    average = parseInt(average, 10);
+    median = parseInt(median, 10);
+    line90 = parseInt(line90, 10);
+    line95 = parseInt(line95, 10);
+    line99 = parseInt(line99, 10);
+    min = parseInt(min, 10);
+    max = parseInt(max, 10);
+    throughput = parseFloat(throughput);
+
     return {
         id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent,
     };
 }
-
-const rows = [
-    createData(0, 'hello', 300, 3, 3, 6, 8, 11, 2, 12, '0.00%', 0.27164, 0.07, 0.03),
-    createData(1, 'hello-1', 400, 3, 3, 6, 8, 11, 2, 12, '1.10%', 0.27164, 0.07, 0.03),
-    createData(2, 'hello-2', 500, 3, 3, 6, 8, 11, 2, 12, '11.00%', 0.27164, 0.07, 0.03),
-];
-
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -57,7 +61,7 @@ const headCells = [
     },
     {
         id: 'error',
-        numeric: true,
+        numeric: false,
         disablePadding: false,
         label: 'Error %',
     },
@@ -167,7 +171,7 @@ AggregateReportTableHead.propTypes = {
     orderBy: PropTypes.string.isRequired,
 };
 
-export default function AggregateReport() {
+export default function AggregateReport(props) {
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('label');
     const [page, setPage] = React.useState(0);
@@ -187,6 +191,27 @@ export default function AggregateReport() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
     };
+
+    const rows = [];
+
+    props.data.forEach((row) => {
+        rows.push(createData(
+            props.data.indexOf(row),
+            row.Label,
+            row['# Samples'],
+            row.Average,
+            row.Median,
+            row['90% Line'],
+            row['95% Line'],
+            row['99% Line'],
+            row.Min,
+            row.Max,
+            row['Error %'],
+            row.Throughput,
+            row['Received KB/sec'],
+            row['Sent KB/sec'],
+        ));
+    });
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 

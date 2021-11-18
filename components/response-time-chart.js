@@ -5,38 +5,7 @@ import {
 } from 'recharts';
 import Title from './title';
 
-const data = [
-    {
-        name: 'Page A',
-        pv: 2400,
-    },
-    {
-        name: 'Page B',
-        pv: 1398,
-    },
-    {
-        name: 'Page C',
-        pv: 6800,
-    },
-    {
-        name: 'Page D',
-        pv: 3908,
-    },
-    {
-        name: 'Page E',
-        pv: 4800,
-    },
-    {
-        name: 'Page F',
-        pv: 3800,
-    },
-    {
-        name: 'Page G',
-        pv: 4300,
-    },
-];
-
-export default function Chart() {
+export default function ResponseTimeChart(props) {
     const theme = useTheme();
 
     return (
@@ -46,7 +15,7 @@ export default function Chart() {
                 <BarChart
                     width={500}
                     height={300}
-                    data={data.sort((a, b) => b.pv - a.pv)}
+                    data={props.data.sort((a, b) => b['90% Line'] - a['90% Line'])}
                     margin={{
                         top: 5,
                         right: 30,
@@ -57,7 +26,7 @@ export default function Chart() {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
-                        dataKey="name"
+                        dataKey="label"
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
                     />
@@ -66,9 +35,9 @@ export default function Chart() {
                         style={theme.typography.body2}
                     />
                     <Tooltip />
-                    <Brush dataKey="name" height={20} stroke={theme.palette.primary.main } />
+                    <Brush dataKey="label" height={20} stroke={theme.palette.primary.main } />
                     <Bar
-                        dataKey="pv"
+                        dataKey="90% Line"
                         fill={theme.palette.primary.main}
                     />
                 </BarChart>
