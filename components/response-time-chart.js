@@ -18,8 +18,8 @@ export default function ResponseTimeChart(props) {
                     data={props.data.sort((a, b) => parseInt(b['90% Line'], 10) - parseInt(a['90% Line'], 10))}
                     margin={{
                         top: 5,
-                        right: 30,
-                        left: 20,
+                        right: 10,
+                        left: 5,
                         bottom: 5,
                     }}
                     barSize={20}
@@ -29,14 +29,19 @@ export default function ResponseTimeChart(props) {
                         dataKey="Label"
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
-                        hide
+                        height={10}
+                        tick={false}
                     />
                     <YAxis
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
                     />
                     <Tooltip />
-                    <Brush dataKey="Label" height={20} stroke={theme.palette.primary.main } />
+                    <Brush
+                        dataKey="Label"
+                        height={20}
+                        stroke={theme.palette.primary.main}
+                    />
                     <Bar
                         dataKey="90% Line"
                         fill={theme.palette.primary.main}
