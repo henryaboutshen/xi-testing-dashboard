@@ -29,6 +29,7 @@ export default function ResponseTimeChart(props) {
                         dataKey="Label"
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
+                        hide
                     />
                     <YAxis
                         stroke={theme.palette.text.secondary}
