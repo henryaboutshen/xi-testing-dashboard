@@ -26,7 +26,7 @@ export default function ResponseTimeChart(props) {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
-                        dataKey="label"
+                        dataKey="Label"
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
                     />
@@ -35,7 +35,7 @@ export default function ResponseTimeChart(props) {
                         style={theme.typography.body2}
                     />
                     <Tooltip />
-                    <Brush dataKey="label" height={20} stroke={theme.palette.primary.main } />
+                    <Brush dataKey="Label" height={20} stroke={theme.palette.primary.main } />
                     <Bar
                         dataKey="90% Line"
                         fill={theme.palette.primary.main}
