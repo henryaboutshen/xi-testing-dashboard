@@ -8,7 +8,17 @@ function parse(file) {
         const result = [];
         fs.createReadStream(`${REPORT_DIR}/${file}.csv`)
             .on('error', (error) => reject(error))
-            .pipe(csvParser())
+            .pipe(csvParser({
+                mapValues: ({ header, value }) => {
+                    if (['# Samples', 'Average', 'Median', '90% Line', '95% Line', '99% Line', 'Min', 'Max'].includes(header)) {
+                        return parseInt(value, 10);
+                    }
+                    if (['Error %', 'Throughput', 'Received KB/sec', 'Sent KB/sec'].includes(header)) {
+                        return parseFloat(value);
+                    }
+                    return value;
+                },
+            }))
             .on('data', (data) => result.push(data))
             .on('end', () => {
                 result.pop();

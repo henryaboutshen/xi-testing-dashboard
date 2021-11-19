@@ -16,16 +16,6 @@ import { visuallyHidden } from '@mui/utils';
 import Title from './title';
 
 function createData(id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent) {
-    samples = parseInt(samples, 10);
-    average = parseInt(average, 10);
-    median = parseInt(median, 10);
-    line90 = parseInt(line90, 10);
-    line95 = parseInt(line95, 10);
-    line99 = parseInt(line99, 10);
-    min = parseInt(min, 10);
-    max = parseInt(max, 10);
-    throughput = parseFloat(throughput);
-
     return {
         id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent,
     };
