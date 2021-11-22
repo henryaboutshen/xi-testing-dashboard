@@ -17,7 +17,7 @@ export default function ResponseTimeChart(props) {
                 <BarChart
                     width={500}
                     height={300}
-                    data={props.data.sort((a, b) => parseInt(b['90% Line'], 10) - parseInt(a['90% Line'], 10))}
+                    data={props.data.sort((a, b) => b['90% Line'] - a['90% Line'])}
                     margin={{
                         top: 5,
                         right: 10,
