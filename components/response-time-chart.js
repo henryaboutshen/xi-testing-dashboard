@@ -5,6 +5,8 @@ import {
 } from 'recharts';
 import Title from './title';
 
+const formatYAxis = (tickItem) => `${tickItem} ms`;
+
 export default function ResponseTimeChart(props) {
     const theme = useTheme();
 
@@ -35,6 +37,8 @@ export default function ResponseTimeChart(props) {
                     <YAxis
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
+                        tickFormatter={formatYAxis}
+                        width={70}
                     />
                     <Tooltip />
                     <Brush
