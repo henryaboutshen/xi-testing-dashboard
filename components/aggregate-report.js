@@ -203,6 +203,7 @@ export default function AggregateReport(props) {
                                         component="th"
                                         scope="row"
                                         padding="none"
+                                        sx={{ whiteSpace: 'nowrap' }}
                                     >
                                         {row.label}
                                     </TableCell>
@@ -219,7 +220,7 @@ export default function AggregateReport(props) {
                         {emptyRows > 0 && (
                             <TableRow
                                 style={{
-                                    height: 33 * emptyRows,
+                                    height: 37 * emptyRows,
                                 }}
                             >
                                 <TableCell colSpan={6} />
