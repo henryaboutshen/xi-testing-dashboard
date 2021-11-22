@@ -19,7 +19,7 @@ export default function KeyIndicators() {
                 >
                     <Title>Users</Title>
                     <Typography component="p" variant="h4">
-                        10
+                        20
                     </Typography>
                 </Paper>
             </Grid>
@@ -68,9 +68,6 @@ export default function KeyIndicators() {
                     <Title>Duration (sec)</Title>
                     <Typography component="p" variant="h4">
                         N/A
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ flex: 1 }}>
-                        on 15 March, 2019
                     </Typography>
                 </Paper>
             </Grid>

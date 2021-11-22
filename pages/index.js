@@ -53,7 +53,7 @@ function DashboardContent(props) {
                         <Grid container spacing={3}>
                             {/* Profile */}
                             <Profile>
-                                2021-01-02 23:18:00
+                                CI 2021-01-02 23:18:00
                             </Profile>
                             {/* Key Indicators */}
                             < KeyIndicators />
