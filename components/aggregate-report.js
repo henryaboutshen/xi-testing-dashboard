@@ -62,18 +62,6 @@ const headCells = [
         label: '90% Line',
     },
     {
-        id: 'line95',
-        numeric: true,
-        disablePadding: false,
-        label: '95% Line',
-    },
-    {
-        id: 'line99',
-        numeric: true,
-        disablePadding: false,
-        label: '99% Line',
-    },
-    {
         id: 'average',
         numeric: true,
         disablePadding: false,
@@ -84,18 +72,6 @@ const headCells = [
         numeric: true,
         disablePadding: false,
         label: 'Median',
-    },
-    {
-        id: 'min',
-        numeric: true,
-        disablePadding: false,
-        label: 'Min',
-    },
-    {
-        id: 'max',
-        numeric: true,
-        disablePadding: false,
-        label: 'Max',
     },
     {
         id: 'throughput',
@@ -233,12 +209,8 @@ export default function AggregateReport(props) {
                                     <TableCell align="right">{row.samples}</TableCell>
                                     <TableCell align="right"><Chip label={row.error} color="success" variant="outlined" size="small" /></TableCell>
                                     <TableCell align="right">{row.line90}</TableCell>
-                                    <TableCell align="right">{row.line95}</TableCell>
-                                    <TableCell align="right">{row.line99}</TableCell>
                                     <TableCell align="right">{row.average}</TableCell>
                                     <TableCell align="right">{row.median}</TableCell>
-                                    <TableCell align="right">{row.min}</TableCell>
-                                    <TableCell align="right">{row.max}</TableCell>
                                     <TableCell align="right">{row.throughput}</TableCell>
                                     <TableCell align="right">{row.received}</TableCell>
                                     <TableCell align="right">{row.sent}</TableCell>
