@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import {
     Typography, Divider, Grid,
 } from '@mui/material';
@@ -6,6 +7,12 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { LoadingButton } from '@mui/lab';
 
 export default function Profile(props) {
+    const [loading, setLoading] = React.useState(false);
+    function handleClick() {
+        setLoading(true);
+        window.open('http://127.0.0.1:3000/api/download?file=2021');
+        setLoading(false);
+    }
     return (
         <Grid container item spacing={3} xs={12}>
             <Grid item xs>
@@ -25,6 +32,8 @@ export default function Profile(props) {
                     loadingPosition="start"
                     startIcon={<FileDownloadIcon />}
                     variant="outlined"
+                    loading={loading}
+                    onClick={handleClick}
                 >
                     DOWNLOAD
                 </LoadingButton>
