@@ -1,5 +1,4 @@
 import * as React from 'react';
-import axios from 'axios';
 import {
     Typography, Divider, Grid,
 } from '@mui/material';

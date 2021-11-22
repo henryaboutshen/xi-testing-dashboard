@@ -51,45 +51,45 @@ const headCells = [
     },
     {
         id: 'error',
-        numeric: false,
+        numeric: true,
         disablePadding: false,
-        label: 'Error %',
+        label: 'Error (%)',
     },
     {
         id: 'line90',
         numeric: true,
         disablePadding: false,
-        label: '90% Line',
+        label: '90% Line (ms)',
     },
     {
         id: 'average',
         numeric: true,
         disablePadding: false,
-        label: 'Average',
+        label: 'Average (ms)',
     },
     {
         id: 'median',
         numeric: true,
         disablePadding: false,
-        label: 'Median',
+        label: 'Median (ms)',
     },
     {
         id: 'throughput',
         numeric: true,
         disablePadding: false,
-        label: 'Throughput',
+        label: 'Throughput (req/sec)',
     },
     {
         id: 'received',
         numeric: true,
         disablePadding: false,
-        label: 'Received KB/sec',
+        label: 'Received (KB/sec)',
     },
     {
         id: 'sent',
         numeric: true,
         disablePadding: false,
-        label: 'Sent KB/sec',
+        label: 'Sent (KB/sec)',
     },
 ];
 
@@ -207,7 +207,7 @@ export default function AggregateReport(props) {
                                         {row.label}
                                     </TableCell>
                                     <TableCell align="right">{row.samples}</TableCell>
-                                    <TableCell align="right"><Chip label={row.error} color="success" variant="outlined" size="small" /></TableCell>
+                                    <TableCell align="right"><Chip label={row.error.toFixed(2)} color={row.error < 5 ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
                                     <TableCell align="right">{row.line90}</TableCell>
                                     <TableCell align="right">{row.average}</TableCell>
                                     <TableCell align="right">{row.median}</TableCell>
