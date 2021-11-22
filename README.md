@@ -1,6 +1,6 @@
 # xi-testing-dashboard
 
-xi-testing-dashboard is a [Next.js](https://nextjs.org/) project based on [MUI](https://mui.com/) and [Next.js](https://nextjs.org/).
+xi-testing-dashboard is a [Next.js](https://nextjs.org/) project based on [MUI](https://mui.com/).
 
 ## Getting Started
 
