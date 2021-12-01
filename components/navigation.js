@@ -1,12 +1,18 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import FormatListBulleted from '@mui/icons-material/FormatListBulleted';
+import SettingsApplications from '@mui/icons-material/SettingsApplications';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { mainListItems, secondaryListItems } from './list-items';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Link from '@mui/material/Link';
 
 const drawerWidth = 240;
 
@@ -56,9 +62,26 @@ export default function Navigation(props) {
                 </IconButton>
             </Toolbar>
             <Divider />
-            <List>{mainListItems}</List>
-            <Divider />
-            <List>{secondaryListItems}</List>
+            <List>
+                <ListItem button component={Link} href="/">
+                    <ListItemIcon>
+                        <BarChartIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Recent" />
+                </ListItem>
+                <ListItem button component={Link} href="/report">
+                    <ListItemIcon>
+                        <FormatListBulleted />
+                    </ListItemIcon>
+                    <ListItemText primary="Report" />
+                </ListItem>
+                <ListItem button>
+                    <ListItemIcon>
+                        <SettingsApplications />
+                    </ListItemIcon>
+                    <ListItemText primary="Setting" />
+                </ListItem>
+            </List>
         </Drawer>
     );
 }
