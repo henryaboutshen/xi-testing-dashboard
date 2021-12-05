@@ -52,7 +52,7 @@ function ReportContent(props) {
                             display: 'flex',
                             flexDirection: 'column',
                         }}>
-                            <ReportList />
+                            <ReportList data={props.data} />
                         </Paper>
                         <Footer sx={{ pt: 4 }} />
                     </Container>
@@ -63,11 +63,11 @@ function ReportContent(props) {
 }
 
 function Report({ data }) {
-    return <ReportContent data={data} />;
+    return <ReportContent data={data}/>;
 }
 
 async function getReport() {
-    const response = await axios.get('http://127.0.0.1:3000/api/jmeter?file=2021');
+    const response = await axios.get('http://127.0.0.1:3000/api/report');
     if (response.status !== 200) {
         return {};
     }
@@ -84,7 +84,7 @@ Report.getInitialProps = async () => {
 };
 
 Report.prototype = {
-    data: PropTypes.array,
+    data: PropTypes.array.isRequired,
 };
 
 export default Report;

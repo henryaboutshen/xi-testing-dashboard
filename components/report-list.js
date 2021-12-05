@@ -1,40 +1,178 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable max-len */
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Link from '@mui/material/Link';
-import Avatar from '@mui/material/Avatar';
-import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import PropTypes from 'prop-types';
+import TableContainer from '@mui/material/TableContainer';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TableSortLabel from '@mui/material/TableSortLabel';
+import { TablePagination } from '@mui/material';
+import Box from '@mui/material/Box';
+import { visuallyHidden } from '@mui/utils';
 
-export default function ReportList() {
+function createData(id, file) {
+    return {
+        id, file,
+    };
+}
+function descendingComparator(a, b, orderBy) {
+    if (b[orderBy] < a[orderBy]) {
+        return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+        return 1;
+    }
+    return 0;
+}
+
+function getComparator(order, orderBy) {
+    return order === 'desc'
+        ? (a, b) => descendingComparator(a, b, orderBy)
+        : (a, b) => -descendingComparator(a, b, orderBy);
+}
+
+const headCells = [
+    {
+        id: 'file',
+        numeric: false,
+        disablePadding: true,
+        label: 'Report',
+    },
+];
+
+function ReportListTableHead(props) {
+    const {
+        order, orderBy, onRequestSort,
+    } = props;
+    const createSortHandler = (property) => (event) => {
+        onRequestSort(event, property);
+    };
+
     return (
-        <List>
-            <ListItem button component={Link} href="#">
-                <ListItemAvatar>
-                    <Avatar>
-                        J
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary='20210102231800-CI-20-60-10-N/A' secondary='Jan 2, 2021' />
-            </ListItem>
-            <ListItem button component={Link} href="#">
-                <ListItemAvatar>
-                    <Avatar>
-                        <WorkIcon />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary='Work' secondary='Jan 7, 2014' />
-            </ListItem>
-            <ListItem button component={Link} href="#">
-                <ListItemAvatar>
-                    <Avatar>
-                        <BeachAccessIcon />
-                    </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary='Vacation' secondary='Jan 11, 2014' />
-            </ListItem>
-        </List>
+        <TableHead>
+            <TableRow>
+                {headCells.map((headCell) => (
+                    <TableCell
+                        key={headCell.id}
+                        align={headCell.numeric ? 'right' : 'left'}
+                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        sortDirection={orderBy === headCell.id ? order : false}
+                    >
+                        <TableSortLabel
+                            active={orderBy === headCell.id}
+                            direction={orderBy === headCell.id ? order : 'asc'}
+                            onClick={createSortHandler(headCell.id)}
+                            sx={{ whiteSpace: 'nowrap' }}
+                        >
+                            {headCell.label}
+                            {orderBy === headCell.id ? (
+                                <Box component="span" sx={visuallyHidden}>
+                                    {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                                </Box>
+                            ) : null}
+                        </TableSortLabel>
+                    </TableCell>
+                ))}
+            </TableRow>
+        </TableHead>
     );
 }
+
+ReportListTableHead.propTypes = {
+    onRequestSort: PropTypes.func.isRequired,
+    order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+    orderBy: PropTypes.string.isRequired,
+};
+
+function ReportList(props) {
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('label');
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const rows = [];
+
+    props.data.forEach((row) => {
+        rows.push(createData(
+            props.data.indexOf(row),
+            row,
+        ));
+    });
+
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+
+    return (
+        <React.Fragment>
+            <TableContainer>
+                <Table size="medium">
+                    <ReportListTableHead
+                        order={order}
+                        orderBy={orderBy}
+                        onRequestSort={handleRequestSort}
+                    />
+                    <TableBody>
+                        {rows.slice().sort(getComparator(order, orderBy))
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((row) => (
+                                <TableRow
+                                    hover
+                                    key={row.id}
+                                >
+                                    <TableCell
+                                        component="th"
+                                        scope="row"
+                                        padding="none"
+                                        sx={{ whiteSpace: 'nowrap' }}
+                                    >
+                                        {row.file}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        {emptyRows > 0 && (
+                            <TableRow
+                                style={{
+                                    height: 37 * emptyRows,
+                                }}
+                            >
+                                <TableCell colSpan={6} />
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[10, 50, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </React.Fragment>
+    );
+}
+
+ReportList.prototype = {
+    data: PropTypes.array.isRequired,
+};
+
+export default ReportList;
