@@ -9,13 +9,14 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
+import Link from '@mui/material/Link';
 import { TablePagination } from '@mui/material';
 import Box from '@mui/material/Box';
 import { visuallyHidden } from '@mui/utils';
 
-function createData(id, file) {
+function createData(id, report, date, env, users, rampup, iterations, duration) {
     return {
-        id, file,
+        id, report, date, env, users, rampup, iterations, duration,
     };
 }
 function descendingComparator(a, b, orderBy) {
@@ -36,10 +37,46 @@ function getComparator(order, orderBy) {
 
 const headCells = [
     {
-        id: 'file',
+        id: 'report',
         numeric: false,
         disablePadding: true,
         label: 'Report',
+    },
+    {
+        id: 'date',
+        numeric: false,
+        disablePadding: false,
+        label: 'Date',
+    },
+    {
+        id: 'env',
+        numeric: false,
+        disablePadding: false,
+        label: 'Environment',
+    },
+    {
+        id: 'users',
+        numeric: true,
+        disablePadding: false,
+        label: 'Users',
+    },
+    {
+        id: 'rampup',
+        numeric: true,
+        disablePadding: false,
+        label: 'Rampup',
+    },
+    {
+        id: 'iterations',
+        numeric: true,
+        disablePadding: false,
+        label: 'Iterations',
+    },
+    {
+        id: 'duration',
+        numeric: true,
+        disablePadding: false,
+        label: 'duration',
     },
 ];
 
@@ -113,7 +150,13 @@ function ReportList(props) {
     props.data.forEach((row) => {
         rows.push(createData(
             props.data.indexOf(row),
-            row,
+            row.report,
+            row.date,
+            row.env,
+            row.users,
+            row.rampup,
+            row.iterations,
+            row.duration,
         ));
     });
 
@@ -142,8 +185,16 @@ function ReportList(props) {
                                         padding="none"
                                         sx={{ whiteSpace: 'nowrap' }}
                                     >
-                                        {row.file}
+                                        <Link href="/">
+                                            {row.report}
+                                        </Link>
                                     </TableCell>
+                                    <TableCell align="left">{row.date}</TableCell>
+                                    <TableCell align="left">{row.env}</TableCell>
+                                    <TableCell align="right">{row.users}</TableCell>
+                                    <TableCell align="right">{row.rampup}</TableCell>
+                                    <TableCell align="right">{row.iterations}</TableCell>
+                                    <TableCell align="right">{row.duration}</TableCell>
                                 </TableRow>
                             ))}
                         {emptyRows > 0 && (
