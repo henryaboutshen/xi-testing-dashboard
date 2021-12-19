@@ -4,7 +4,7 @@ import MuiAppBar from '@mui/material/AppBar';
 import Badge from '@mui/material/Badge';
 import Toolbar from '@mui/material/Toolbar';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import CachedIcon from '@mui/icons-material/Cached';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
@@ -62,8 +62,8 @@ export default function Header(props) {
                     Xi Testing Dashboard
                 </Typography>
                 <IconButton color="inherit">
-                    <Badge badgeContent={1} color="secondary">
-                        <NotificationsIcon />
+                    <Badge badgeContent={0} color="secondary">
+                        <CachedIcon />
                     </Badge>
                 </IconButton>
             </Toolbar>
