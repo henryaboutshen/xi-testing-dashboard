@@ -185,7 +185,7 @@ function ReportList(props) {
                                         padding="none"
                                         sx={{ whiteSpace: 'nowrap' }}
                                     >
-                                        <Link href="/">
+                                        <Link href={`/?file=${row.report}`}>
                                             {row.report}
                                         </Link>
                                     </TableCell>

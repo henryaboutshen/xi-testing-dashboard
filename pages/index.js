@@ -93,8 +93,8 @@ function Dashboard({ data }) {
     return <DashboardContent data={data} />;
 }
 
-async function getReport() {
-    const response = await axios.get('http://127.0.0.1:3000/api/jmeter?file=2021');
+async function getReport(file) {
+    const response = file ? await axios.get(`http://127.0.0.1:3000/api/jmeter?file=${file}`) : await axios.get('http://127.0.0.1:3000/api/jmeter');
     if (response.status !== 200) {
         return {};
     }
@@ -105,8 +105,9 @@ async function getReport() {
     return report;
 }
 
-Dashboard.getInitialProps = async () => {
-    const data = await getReport();
+Dashboard.getInitialProps = async ({ query }) => {
+    const { file } = query;
+    const data = await getReport(file);
     return { data };
 };
 

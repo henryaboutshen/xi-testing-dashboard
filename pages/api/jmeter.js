@@ -6,7 +6,7 @@ const REPORT_DIR = 'report';
 function parse(file) {
     return new Promise((resolve, reject) => {
         const result = [];
-        fs.createReadStream(`${REPORT_DIR}/${file}.csv`)
+        fs.createReadStream(`${REPORT_DIR}/${file}`)
             .on('error', (error) => reject(error))
             .pipe(csvParser({
                 mapValues: ({ header, value }) => {
@@ -34,6 +34,8 @@ export default async function handler(req, res) {
         const result = await parse(file);
         res.status(200).json(result);
     } else {
-        res.status(404).json({ error: 'Invalid parameter' });
+        const files = fs.readdirSync(REPORT_DIR).reverse();
+        const result = await parse(files[0]);
+        res.status(200).json(result);
     }
 }
