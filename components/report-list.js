@@ -64,7 +64,7 @@ const headCells = [
         id: 'rampup',
         numeric: true,
         disablePadding: false,
-        label: 'Rampup',
+        label: 'Rampup(min)',
     },
     {
         id: 'iterations',
@@ -76,7 +76,7 @@ const headCells = [
         id: 'duration',
         numeric: true,
         disablePadding: false,
-        label: 'duration',
+        label: 'duration(hr)',
     },
 ];
 
@@ -125,8 +125,8 @@ ReportListTableHead.propTypes = {
 };
 
 function ReportList(props) {
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('label');
+    const [order, setOrder] = React.useState('desc');
+    const [orderBy, setOrderBy] = React.useState('date');
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
