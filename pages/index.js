@@ -52,11 +52,9 @@ function DashboardContent(props) {
                     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
                             {/* Profile */}
-                            <Profile>
-                                CI 2021-01-02 23:18:00
-                            </Profile>
+                            <Profile env={props.indicator.env} date={props.indicator.date} />
                             {/* Key Indicators */}
-                            < KeyIndicators />
+                            < KeyIndicators indicator={props.indicator} />
                             {/* Response Time Chart */}
                             <Grid item xs={12} md={8}>
                                 <Paper
@@ -89,8 +87,8 @@ function DashboardContent(props) {
     );
 }
 
-function Dashboard({ data }) {
-    return <DashboardContent data={data} />;
+function Dashboard({ indicator, data }) {
+    return <DashboardContent indicator={indicator} data={data} />;
 }
 
 async function getReport(file) {
@@ -108,10 +106,11 @@ async function getReport(file) {
 Dashboard.getInitialProps = async ({ query }) => {
     const { file } = query;
     const data = await getReport(file);
-    return { data };
+    return data;
 };
 
 Dashboard.prototype = {
+    indicator: PropTypes.object,
     data: PropTypes.array,
 };
 

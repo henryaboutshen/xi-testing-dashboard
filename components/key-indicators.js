@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Title from './title';
 
-export default function KeyIndicators() {
+export default function KeyIndicators(props) {
     return (
         <Grid container item spacing={3} xs={12} md={4}>
             {/* Users */}
@@ -19,7 +19,7 @@ export default function KeyIndicators() {
                 >
                     <Title>Users</Title>
                     <Typography component="p" variant="h4">
-                        20
+                        {props.indicator.users}
                     </Typography>
                 </Paper>
             </Grid>
@@ -33,9 +33,9 @@ export default function KeyIndicators() {
                         height: 150,
                     }}
                 >
-                    <Title>Rampup (sec)</Title>
+                    <Title>Rampup (min)</Title>
                     <Typography component="p" variant="h4">
-                        60
+                        {props.indicator.rampup}
                     </Typography>
                 </Paper>
             </Grid>
@@ -51,7 +51,7 @@ export default function KeyIndicators() {
                 >
                     <Title>Iterations</Title>
                     <Typography component="p" variant="h4">
-                        10
+                        {props.indicator.iterations}
                     </Typography>
                 </Paper>
             </Grid>
@@ -65,9 +65,9 @@ export default function KeyIndicators() {
                         height: 150,
                     }}
                 >
-                    <Title>Duration (sec)</Title>
+                    <Title>Duration (hr)</Title>
                     <Typography component="p" variant="h4">
-                        N/A
+                        {props.indicator.duration}
                     </Typography>
                 </Paper>
             </Grid>

@@ -23,8 +23,9 @@ export default function Profile(props) {
                     noWrap
                     sx={{ flexGrow: 1 }}
                 >
-                    {props.children}
+                    {props.env}
                 </Typography>
+                {props.date}
             </Grid>
             <Grid item>
                 <LoadingButton
