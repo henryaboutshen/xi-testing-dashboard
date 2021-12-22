@@ -9,7 +9,7 @@ export default function Profile(props) {
     const [loading, setLoading] = React.useState(false);
     function handleClick() {
         setLoading(true);
-        window.open('/api/download?file=2021');
+        window.open(`/api/download?file=${props.file}`);
         setLoading(false);
     }
     return (

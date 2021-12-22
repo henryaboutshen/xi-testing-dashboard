@@ -48,11 +48,11 @@ export default async function handler(req, res) {
     if (file) {
         const indicator = indicatorParse(file);
         const data = await parse(file);
-        res.status(200).json({ indicator, data });
+        res.status(200).json({ file, indicator, data });
     } else {
         const files = fs.readdirSync(REPORT_DIR).reverse();
         const indicator = indicatorParse(files[0]);
         const data = await parse(files[0]);
-        res.status(200).json({ indicator, data });
+        res.status(200).json({ file: files[0], indicator, data });
     }
 }

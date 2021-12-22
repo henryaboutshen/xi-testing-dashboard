@@ -51,11 +51,12 @@ function DashboardContent(props) {
                     <Toolbar />
                     <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
                         <Grid container spacing={3}>
-                            {/* Profile */}
-                            <Profile env={props.indicator.env} date={props.indicator.date} />
-                            {/* Key Indicators */}
+                            <Profile
+                                file={props.file}
+                                env={props.indicator.env}
+                                date={props.indicator.date}
+                            />
                             < KeyIndicators indicator={props.indicator} />
-                            {/* Response Time Chart */}
                             <Grid item xs={12} md={8}>
                                 <Paper
                                     sx={{
@@ -68,7 +69,6 @@ function DashboardContent(props) {
                                     <ResponseTimeChart data={props.data} />
                                 </Paper>
                             </Grid>
-                            {/* Aggregate Report */}
                             <Grid item xs={12}>
                                 <Paper sx={{
                                     p: 2,
@@ -87,8 +87,8 @@ function DashboardContent(props) {
     );
 }
 
-function Dashboard({ indicator, data }) {
-    return <DashboardContent indicator={indicator} data={data} />;
+function Dashboard({ file, indicator, data }) {
+    return <DashboardContent file={file} indicator={indicator} data={data} />;
 }
 
 async function getReport(file) {
@@ -106,10 +106,11 @@ async function getReport(file) {
 Dashboard.getInitialProps = async ({ query }) => {
     const { file } = query;
     const data = await getReport(file);
-    return data;
+    return { file: data.file, indicator: data.indicator, data: data.data };
 };
 
 Dashboard.prototype = {
+    file: PropTypes.string,
     indicator: PropTypes.object,
     data: PropTypes.array,
 };

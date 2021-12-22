@@ -5,7 +5,7 @@ const REPORT_DIR = 'report';
 export default async function handler(req, res) {
     const { file } = req.query;
     if (file) {
-        const path = `${REPORT_DIR}/${file}.csv`;
+        const path = `${REPORT_DIR}/${file}`;
         const stat = fs.statSync(path);
         res.writeHead(200, {
             'Content-Type': 'text/csv',
