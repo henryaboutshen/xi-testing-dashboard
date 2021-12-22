@@ -10,7 +10,7 @@ export default function Footer(props) {
             <Link color="inherit" href="https://github.com/henryaboutshen/">
                 Hanrui Shen
             </Link>
-            {' .'}
+            {'.'}
         </Typography>
     );
 }
