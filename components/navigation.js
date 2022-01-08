@@ -4,6 +4,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import FormatListBulleted from '@mui/icons-material/FormatListBulleted';
 import SettingsApplications from '@mui/icons-material/SettingsApplications';
+import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MuiDrawer from '@mui/material/Drawer';
@@ -74,6 +75,12 @@ export default function Navigation(props) {
                         <FormatListBulleted />
                     </ListItemIcon>
                     <ListItemText primary="Report" />
+                </ListItem>
+                <ListItem button component={Link} href="/trend">
+                    <ListItemIcon>
+                        <TrendingDownIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Trend" />
                 </ListItem>
                 <ListItem button>
                     <ListItemIcon>

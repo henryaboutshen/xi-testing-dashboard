@@ -1,27 +1,28 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import {
-    BarChart, Bar, Brush, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine,
+    ComposedChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line, Legend,
+    Brush, ReferenceLine,
 } from 'recharts';
 import Title from './title';
 
-const formatYAxis = (tickItem) => `${tickItem} ms`;
+const formatXAxis = (tickItem) => `${tickItem} ms`;
 
 export default function ResponseTimeChart(props) {
     const theme = useTheme();
 
     return (
         <React.Fragment>
-            <Title>Response Time</Title>
+            <Title>Trend (90% Line)</Title>
             <ResponsiveContainer>
-                <BarChart
+                <ComposedChart
                     width={500}
-                    height={300}
-                    data={props.data.sort((a, b) => b['90% Line'] - a['90% Line'])}
+                    height={500}
+                    data={props.data.sort((a, b) => b.Difference - a.Difference)}
                     margin={{
                         top: 5,
-                        right: 10,
-                        left: 5,
+                        right: 20,
+                        left: 10,
                         bottom: 5,
                     }}
                     barSize={20}
@@ -37,10 +38,16 @@ export default function ResponseTimeChart(props) {
                     <YAxis
                         stroke={theme.palette.text.secondary}
                         style={theme.typography.body2}
-                        tickFormatter={formatYAxis}
-                        width={70}
+                        width={80}
+                        tickFormatter={formatXAxis}
                     />
                     <Tooltip />
+                    <Legend />
+                    <Brush
+                        dataKey="Label"
+                        height={20}
+                        stroke={theme.palette.primary.main}
+                    />
                     <ReferenceLine
                         y={3000}
                         stroke="red"
@@ -55,16 +62,21 @@ export default function ResponseTimeChart(props) {
                         label="API Benchmark"
                     >
                     </ReferenceLine>
-                    <Brush
-                        dataKey="Label"
-                        height={20}
-                        stroke={theme.palette.primary.main}
-                    />
                     <Bar
-                        dataKey="90% Line"
+                        dataKey="Current"
                         fill={theme.palette.primary.main}
                     />
-                </BarChart>
+                    <Bar
+                        dataKey="Previous"
+                        fill="#e0e0e0"
+                    />
+                    <Line
+                        dataKey="Difference"
+                        type="monotone"
+                        fill={theme.palette.secondary.main}
+                        stroke={theme.palette.secondary.main}
+                    />
+                </ComposedChart>
             </ResponsiveContainer>
         </React.Fragment>
     );

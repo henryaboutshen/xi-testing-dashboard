@@ -44,12 +44,6 @@ const headCells = [
         label: 'Label',
     },
     {
-        id: 'samples',
-        numeric: true,
-        disablePadding: false,
-        label: '# Samples',
-    },
-    {
         id: 'error',
         numeric: true,
         disablePadding: false,
@@ -207,7 +201,6 @@ export default function AggregateReport(props) {
                                     >
                                         {row.label}
                                     </TableCell>
-                                    <TableCell align="right">{row.samples}</TableCell>
                                     <TableCell align="right"><Chip label={row.error.toFixed(3)} color={row.error < 5 ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
                                     <TableCell align="right">{row.line90}</TableCell>
                                     <TableCell align="right">{row.average}</TableCell>
