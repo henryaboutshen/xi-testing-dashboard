@@ -68,9 +68,9 @@ export default async function handler(req, res) {
         res.status(200).json({ file1, indicator, data });
     } else {
         const files = fs.readdirSync(REPORT_DIR).reverse();
-        const benchmark = await parse(files[1]);
+        const previous = await parse(files[1]);
         const current = await parse(files[0]);
-        const data = compare(benchmark, current);
-        res.status(200).json({ benchmark: files[1], current: files[0], data });
+        const data = compare(previous, current);
+        res.status(200).json({ previous: files[1], current: files[0], data });
     }
 }

@@ -53,7 +53,7 @@ function TrendContent(props) {
                             flexDirection: 'column',
                             height: 700,
                         }}>
-                            <TrendChart data={props.data} />
+                            <TrendChart data={props.data} report={props.report} />
                         </Paper>
                         <Footer sx={{ pt: 4 }} />
                     </Container>
@@ -63,12 +63,24 @@ function TrendContent(props) {
     );
 }
 
-function Trend({ data }) {
-    return <TrendContent data={data}/>;
+function Trend({ data, report }) {
+    return <TrendContent data={data} report={report}/>;
+}
+
+async function getData() {
+    const response = await axios.get('http://127.0.0.1:3000/api/trend');
+    if (response.status !== 200) {
+        return {};
+    }
+    const { data } = response;
+    if (!data) {
+        return {};
+    }
+    return data;
 }
 
 async function getReport() {
-    const response = await axios.get('http://127.0.0.1:3000/api/trend');
+    const response = await axios.get('http://127.0.0.1:3000/api/report');
     if (response.status !== 200) {
         return {};
     }
@@ -80,12 +92,14 @@ async function getReport() {
 }
 
 Trend.getInitialProps = async () => {
-    const data = await getReport();
-    return data;
+    const data = await getData();
+    const report = await getReport();
+    return { data, report };
 };
 
 Trend.prototype = {
     data: PropTypes.array.isRequired,
+    report: PropTypes.array.isRequired,
 };
 
 export default Trend;
