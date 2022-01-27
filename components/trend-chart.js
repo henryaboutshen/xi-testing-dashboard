@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import { useTheme } from '@mui/material/styles';
 import { Grid, TextField, Autocomplete } from '@mui/material';
 import {
@@ -9,17 +10,28 @@ import Title from './title';
 
 const formatXAxis = (tickItem) => `${tickItem} ms`;
 
-const createData = (label) => ({ label });
-
 export default function ResponseTimeChart(props) {
+    const [current, setCurrent] = React.useState(props.data.current);
+    const [previous, setPrevious] = React.useState(props.data.previous);
+    const [data, setData] = React.useState(
+        props.data.data.sort((a, b) => b.Difference - a.Difference),
+    );
+
+    const getReport = async () => {
+        const response = await axios.get(`http://localhost:3000/api/trend?previous=${previous}&current=${current}`);
+        if (response.status === 200) {
+            if (response.data) {
+                setData(response.data.data.sort((a, b) => b.Difference - a.Difference));
+            }
+        }
+    };
+
     const theme = useTheme();
 
     const reports = [];
 
     props.report.forEach((row) => {
-        reports.push(createData(
-            row.report,
-        ));
+        reports.push(row.report);
     });
 
     return (
@@ -32,9 +44,13 @@ export default function ResponseTimeChart(props) {
                     disablePortal
                     size="small"
                     options={reports}
-                    defaultValue={props.data.previous}
+                    value={previous}
                     sx={{ width: 280 }}
                     renderInput={(params) => <TextField {...params} label="Previous" />}
+                    onChange={(event, newValue) => {
+                        setPrevious(newValue);
+                        getReport();
+                    }}
                 />
             </Grid>
             <Grid item>
@@ -42,9 +58,13 @@ export default function ResponseTimeChart(props) {
                     disablePortal
                     size="small"
                     options={reports}
-                    defaulwtValue={props.data.current}
+                    value={current}
                     sx={{ width: 280 }}
                     renderInput={(params) => <TextField {...params} label="Current" />}
+                    onChange={(event, newValue) => {
+                        setCurrent(newValue);
+                        getReport();
+                    }}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -52,7 +72,7 @@ export default function ResponseTimeChart(props) {
                     <ComposedChart
                         width={500}
                         height={500}
-                        data={props.data.data.sort((a, b) => b.Difference - a.Difference)}
+                        data={data}
                         margin={{
                             top: 5,
                             right: 0,

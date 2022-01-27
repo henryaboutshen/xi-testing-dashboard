@@ -68,7 +68,7 @@ function Trend({ data, report }) {
 }
 
 async function getData() {
-    const response = await axios.get('http://127.0.0.1:3000/api/trend');
+    const response = await axios.get('http://localhost:3000/api/trend');
     if (response.status !== 200) {
         return {};
     }
@@ -80,7 +80,7 @@ async function getData() {
 }
 
 async function getReport() {
-    const response = await axios.get('http://127.0.0.1:3000/api/report');
+    const response = await axios.get('http://localhost:3000/api/report');
     if (response.status !== 200) {
         return {};
     }

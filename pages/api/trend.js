@@ -61,16 +61,17 @@ const indicatorParse = (file) => {
 };
 
 export default async function handler(req, res) {
-    const { file1, file2 } = req.query;
-    if (file1 && file2) {
-        const indicator = indicatorParse(file1);
-        const data = await parse(file1);
-        res.status(200).json({ file1, indicator, data });
+    const { previous, current } = req.query;
+    if (previous && current) {
+        const previousFile = await parse(previous);
+        const currentFile = await parse(current);
+        const data = compare(previousFile, currentFile);
+        res.status(200).json({ previous, current, data });
     } else {
         const files = fs.readdirSync(REPORT_DIR).reverse();
-        const previous = await parse(files[1]);
-        const current = await parse(files[0]);
-        const data = compare(previous, current);
+        const previousFile = await parse(files[1]);
+        const currentFile = await parse(files[0]);
+        const data = compare(previousFile, currentFile);
         res.status(200).json({ previous: files[1], current: files[0], data });
     }
 }

@@ -92,7 +92,7 @@ function Dashboard({ file, indicator, data }) {
 }
 
 async function getReport(file) {
-    const response = file ? await axios.get(`http://127.0.0.1:3000/api/jmeter?file=${file}`) : await axios.get('http://127.0.0.1:3000/api/jmeter');
+    const response = file ? await axios.get(`http://localhost:3000/api/jmeter?file=${file}`) : await axios.get('http://localhost:3000/api/jmeter');
     if (response.status !== 200) {
         return {};
     }
