@@ -17,8 +17,8 @@ export default function ResponseTimeChart(props) {
         props.data.data.sort((a, b) => b.Difference - a.Difference),
     );
 
-    const getReport = async () => {
-        const response = await axios.get(`http://localhost:3000/api/trend?previous=${previous}&current=${current}`);
+    const getReport = async (newPrevious, newCurrent) => {
+        const response = await axios.get(`http://localhost:3000/api/trend?previous=${newPrevious || previous}&current=${newCurrent || current}`);
         if (response.status === 200) {
             if (response.data) {
                 setData(response.data.data.sort((a, b) => b.Difference - a.Difference));
@@ -47,9 +47,9 @@ export default function ResponseTimeChart(props) {
                     value={previous}
                     sx={{ width: 280 }}
                     renderInput={(params) => <TextField {...params} label="Previous" />}
-                    onChange={(event, newValue) => {
-                        setPrevious(newValue);
-                        getReport();
+                    onChange={(event, value) => {
+                        setPrevious(value);
+                        getReport(value, null);
                     }}
                 />
             </Grid>
@@ -61,9 +61,9 @@ export default function ResponseTimeChart(props) {
                     value={current}
                     sx={{ width: 280 }}
                     renderInput={(params) => <TextField {...params} label="Current" />}
-                    onChange={(event, newValue) => {
-                        setCurrent(newValue);
-                        getReport();
+                    onChange={(event, value) => {
+                        setCurrent(value);
+                        getReport(null, value);
                     }}
                 />
             </Grid>
