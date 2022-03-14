@@ -51,7 +51,6 @@ function TrendContent(props) {
                             p: 2,
                             display: 'flex',
                             flexDirection: 'column',
-                            height: 700,
                         }}>
                             <TrendChart data={props.data} report={props.report} />
                         </Paper>

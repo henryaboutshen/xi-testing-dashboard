@@ -20,6 +20,7 @@ function createData(id, label, samples, average, median, line90, line95, line99,
         id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent,
     };
 }
+
 function descendingComparator(a, b, orderBy) {
     if (b[orderBy] < a[orderBy]) {
         return -1;
@@ -177,7 +178,7 @@ export default function AggregateReport(props) {
 
     return (
         <React.Fragment>
-            <Title> Aggregate Report</Title>
+            <Title>Aggregate Report</Title>
             <TableContainer>
                 <Table size="small">
                     <AggregateReportTableHead
