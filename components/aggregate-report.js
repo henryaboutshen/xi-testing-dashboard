@@ -177,7 +177,7 @@ export default function AggregateReport(props) {
             row.Throughput,
             row['Received KB/sec'],
             row['Sent KB/sec'],
-            row['90% Line'] < (row.Label.startsWith('Page') ? 5000 : 3000) ? 'Pass' : 'Fail',
+            row['90% Line'] < (row.Label.startsWith('Page') ? 3000 : 1000) ? 'Pass' : 'Fail',
         ));
     });
 
