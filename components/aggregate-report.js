@@ -15,9 +15,9 @@ import Chip from '@mui/material/Chip';
 import { visuallyHidden } from '@mui/utils';
 import Title from './title';
 
-function createData(id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent) {
+function createData(id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent, sla) {
     return {
-        id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent,
+        id, label, samples, average, median, line90, line95, line99, min, max, error, throughput, received, sent, sla,
     };
 }
 
@@ -52,8 +52,8 @@ const headCells = [
     },
     {
         id: 'sla',
-        numeric: true,
-        disablePadding: false,
+        numeric: false,
+        disablePadding: true,
         label: 'SLA Status',
     },
     {
@@ -177,6 +177,7 @@ export default function AggregateReport(props) {
             row.Throughput,
             row['Received KB/sec'],
             row['Sent KB/sec'],
+            row['90% Line'] < (row.Label.startsWith('Page') ? 5000 : 3000) ? 'Pass' : 'Fail',
         ));
     });
 
@@ -209,7 +210,7 @@ export default function AggregateReport(props) {
                                         {row.label}
                                     </TableCell>
                                     <TableCell align="right"><Chip label={row.error.toFixed(3)} color={row.error < 5 ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
-                                    <TableCell align="right"><Chip label={row.line90 < (row.label.startsWith('Page') ? 5000 : 3000) ? 'Pass' : 'Fail'} color={row.line90 < (row.label.startsWith('Page') ? 5000 : 3000) ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
+                                    <TableCell align="right"><Chip label={row.sla} color={row.sla === 'Pass' ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
                                     <TableCell align="right">{row.line90}</TableCell>
                                     <TableCell align="right">{row.average}</TableCell>
                                     <TableCell align="right">{row.median}</TableCell>
