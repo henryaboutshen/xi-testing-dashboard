@@ -55,7 +55,7 @@ const headCells = [
         id: 'Current',
         numeric: true,
         disablePadding: false,
-        label: 'Current',
+        label: 'Current (ms)',
     },
     {
         id: 'Previous',
@@ -121,7 +121,7 @@ export default function ResponseTimeChart(props) {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
     const getReport = async (newPrevious, newCurrent) => {
-        const response = await axios.get(`http://localhost:3000/api/trend?previous=${newPrevious || previous}&current=${newCurrent || current}`);
+        const response = await axios.get(`/api/trend?previous=${newPrevious || previous}&current=${newCurrent || current}`);
         if (response.status === 200) {
             if (response.data) {
                 setData(response.data.data.sort((a, b) => b.Difference - a.Difference));

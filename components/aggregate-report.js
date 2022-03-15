@@ -51,6 +51,12 @@ const headCells = [
         label: 'Error (%)',
     },
     {
+        id: 'sla',
+        numeric: true,
+        disablePadding: false,
+        label: 'SLA Status',
+    },
+    {
         id: 'line90',
         numeric: true,
         disablePadding: false,
@@ -203,6 +209,7 @@ export default function AggregateReport(props) {
                                         {row.label}
                                     </TableCell>
                                     <TableCell align="right"><Chip label={row.error.toFixed(3)} color={row.error < 5 ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
+                                    <TableCell align="right"><Chip label={row.line90 < (row.label.startsWith('Page') ? 5000 : 3000) ? 'Pass' : 'Fail'} color={row.line90 < (row.label.startsWith('Page') ? 5000 : 3000) ? 'success' : 'error'} variant="outlined" size="small" /></TableCell>
                                     <TableCell align="right">{row.line90}</TableCell>
                                     <TableCell align="right">{row.average}</TableCell>
                                     <TableCell align="right">{row.median}</TableCell>
