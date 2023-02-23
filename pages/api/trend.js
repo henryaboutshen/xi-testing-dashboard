@@ -1,7 +1,6 @@
 /* eslint-disable consistent-return */
 import csvParser from 'csv-parser';
 import fs from 'fs';
-import moment from 'moment';
 import _ from 'lodash';
 
 const REPORT_DIR = 'report';
@@ -42,22 +41,6 @@ const compare = (benchmark, current) => {
         }
     });
     return result;
-};
-
-const indicatorParse = (file) => {
-    const indicator = {};
-    if (file.endsWith('.csv') && file.indexOf('-') !== -1) {
-        const format = process.env.reportNameFormat.split('-');
-        const fileParam = file.replace('.csv', '').split('-');
-        format.forEach((key) => {
-            if (key === 'date') {
-                indicator[key] = moment(fileParam[format.indexOf(key)], 'YYYYMMDDHHmmss').format('YYYY-MM-DD HH:mm:ss');
-            } else {
-                indicator[key] = fileParam[format.indexOf(key)];
-            }
-        });
-    }
-    return indicator;
 };
 
 export default async function handler(req, res) {
